@@ -220,6 +220,12 @@ pub struct DBTitanBlobIndex {
     pub blob_size: u64,
 }
 
+#[repr(C)]
+pub struct IngestExternalFileArg {
+    pub cf_handle: *mut DBCFHandle,
+    pub file_path: *const c_char,
+}
+
 pub fn new_bloom_filter(bits: c_double) -> *mut DBFilterPolicy {
     unsafe { crocksdb_filterpolicy_create_bloom(bits) }
 }
@@ -2142,6 +2148,13 @@ extern "C" {
         db: *mut DBInstance,
         handle: *const DBCFHandle,
         file_list: *const *const c_char,
+        list_len: size_t,
+        opt: *const IngestExternalFileOptions,
+        err: *mut *mut c_char,
+    );
+    pub fn crocksdb_ingest_external_files(
+        db: *mut DBInstance,
+        list: *const IngestExternalFileArg,
         list_len: size_t,
         opt: *const IngestExternalFileOptions,
         err: *mut *mut c_char,
