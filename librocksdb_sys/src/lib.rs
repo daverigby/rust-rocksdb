@@ -1353,6 +1353,7 @@ extern "C" {
     pub fn crocksdb_iter_key(iter: *const DBIterator, klen: *mut size_t) -> *mut u8;
     pub fn crocksdb_iter_value(iter: *const DBIterator, vlen: *mut size_t) -> *mut u8;
     pub fn crocksdb_iter_get_error(iter: *const DBIterator, err: *mut *mut c_char);
+    pub fn crocksdb_iter_refresh(iter: *const DBIterator, err: *mut *mut c_char);
     // Write batch
     pub fn crocksdb_write(
         db: *mut DBInstance,
